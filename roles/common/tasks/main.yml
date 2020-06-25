@@ -1,6 +1,6 @@
 ---
 # ensure squid is installed
--name: ensure squid is installed
+- name: ensure squid is installed
   package:
     name: squid
     state: present
