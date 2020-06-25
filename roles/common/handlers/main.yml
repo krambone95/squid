@@ -1,0 +1,7 @@
+---
+# Handlers
+
+# Restart squid service
+- name: restart squid
+  service:
+    state: restarted

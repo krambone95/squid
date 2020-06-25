@@ -1,0 +1,12 @@
+---
+# ensure squid is installed
+-name: ensure squid is installed
+  package:
+    name: squid
+    state: present
+
+# ensure squid is running
+- name: ensure squid is running
+  service:
+    name: squid
+    state: started
