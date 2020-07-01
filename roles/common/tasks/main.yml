@@ -38,7 +38,7 @@
 
 # make sure dhparam exists for DH ciphers
 - name: check if dhparam.pem exists
-  state:
+  stat:
     path: /usr/local/squid/etc/dhparam.pem
   register: dhparam_file
 
