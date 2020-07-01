@@ -86,3 +86,10 @@
     state: enabled
   notify:
   -  restart firewalld
+
+# ensure cron job for squid log rotation exists
+- name: cron job squid log rotation
+  cron:
+    name: squid_log_rotation
+    hour: "2"
+    job: "/usr/local/squid/sbin/squid -k rotate"
