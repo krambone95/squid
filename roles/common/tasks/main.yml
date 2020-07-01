@@ -17,6 +17,13 @@
 #    name: squid-debuginfo
 #    state: present
 
+- name: copy config files
+  copy:
+    src: etc/squid/
+    dest: /etc/squid/
+  notify:
+  - restart squid
+
 # ensure squid is running
 - name: ensure squid is running
   service:
