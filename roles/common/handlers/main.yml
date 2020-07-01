@@ -4,6 +4,7 @@
 # Restart squid service
 - name: restart squid
   service:
+    name: squid
     state: restarted
 
 # Restart firewalld service
