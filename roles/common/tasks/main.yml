@@ -6,19 +6,48 @@
     state: present
 
 # ensure squid is installed
-- name: ensure squid-helpers is installed
-  package:
-    name: squid-helpers
-    state: present
+#- name: ensure squid-helpers is installed
+#  package:
+#    name: squid-helpers
+#    state: present
 
 # ensure squid-debuginfo is installed
-- name: ensure squid is installed
-  package:
-    name: squid-debuginfo
-    state: present
+#- name: ensure squid is installed
+#  package:
+#    name: squid-debuginfo
+#    state: present
 
 # ensure squid is running
 - name: ensure squid is running
   service:
     name: squid
     state: started
+
+- name: SELinux booleans squid_use_tproxy
+  seboolean:
+    name: squid_use_tproxy
+    state: yes
+    persistent: yes
+
+- name: SELinux booleans squid_connect_any
+  seboolean:
+    name: squid_connect_any
+    state: yes
+    persistent: yes
+
+- name: SELinux ports
+  seport:
+    ports: 3128,3129,3130
+    proto: tcp
+    setype: squid_port_t
+    state: present
+  notify:
+  -  restart firewalld
+
+- name: firewalld ports 3128-3130
+  firewalld:
+    port: 3128-3130/tcp
+    permanent: yes
+    state: enabled
+  notify:
+  -  restart firewalld
