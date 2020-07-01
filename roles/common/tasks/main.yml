@@ -25,10 +25,28 @@
   - restart squid
 
 # make sure security_file_certgen has run
-- name: Check that the somefile.conf exists
+- name: check if ssl_db exists
   stat:
-    path: /etc/file.txt
-  register: stat_result
+    path: /var/spool/squid/ssl_db
+  register: ssl_db_file
+
+# run db create command if above fails
+- name: run ssl_db create if necessary
+  command: 
+    cmd: sudo -u squid /usr/lib64/squid/security_file_certgen -c -s /var/spool/squid/ssl_db -M 4MB
+  when: not ssl_db_file.stat.exists
+
+# make sure dhparam exists for DH ciphers
+- name: check if dhparam.pem exists
+  state:
+    path: /usr/local/squid/etc/dhparam.pem
+  register: dhparam_file
+
+# run db create command if above fails
+- name: run dhparam create if necessary
+  command: 
+    cmd: openssl dhparam -outform PEM -out dhparam.pem 2048
+  when: not dhparam_file.stat.exists
 
 # ensure squid is running
 - name: ensure squid is running
