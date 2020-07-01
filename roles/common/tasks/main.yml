@@ -47,7 +47,7 @@
 # run db create command if above fails
 - name: run dhparam create if necessary
   command: 
-    cmd: openssl dhparam -outform PEM -out dhparam.pem 2048
+    cmd: openssl dhparam -outform PEM -out /usr/local/squid/etc/dhparam.pem 2048
   notify:
   - restart squid
   when: not dhparam_file.stat.exists
