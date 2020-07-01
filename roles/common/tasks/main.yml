@@ -24,6 +24,12 @@
   notify:
   - restart squid
 
+# make sure security_file_certgen has run
+- name: Check that the somefile.conf exists
+  stat:
+    path: /etc/file.txt
+  register: stat_result
+
 # ensure squid is running
 - name: ensure squid is running
   service:
