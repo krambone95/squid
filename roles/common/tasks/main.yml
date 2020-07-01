@@ -34,8 +34,10 @@
 - name: run ssl_db create if necessary
   command: 
     cmd: sudo -u squid /usr/lib64/squid/security_file_certgen -c -s /var/spool/squid/ssl_db -M 4MB
+  notify:
+  - restart squid
   when: not ssl_db_file.stat.exists
-
+  
 # make sure dhparam exists for DH ciphers
 - name: check if dhparam.pem exists
   stat:
@@ -46,6 +48,8 @@
 - name: run dhparam create if necessary
   command: 
     cmd: openssl dhparam -outform PEM -out dhparam.pem 2048
+  notify:
+  - restart squid
   when: not dhparam_file.stat.exists
 
 # ensure squid is running
