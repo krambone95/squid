@@ -93,3 +93,9 @@
     name: squid_log_rotation
     hour: "2"
     job: "/usr/local/squid/sbin/squid -k rotate"
+
+# ensure selinux is turned on
+- name: selinux turned on
+  selinux:
+    policy: targeted
+    state: enforcing
