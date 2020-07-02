@@ -78,8 +78,6 @@
     proto: tcp
     setype: squid_port_t
     state: present
-  notify:
-  -  restart firewalld
 
 - name: firewalld ports 3128-3130
   firewalld:
@@ -88,6 +86,26 @@
     state: enabled
   notify:
   -  restart firewalld
+
+- name: redirect 80 to 3129
+  firewalld:
+    rich_rule: rule family=ipv4 forward-port port=80 protocol=tcp to-port=3129
+    zone: public
+    permanent: yes
+    immediate: yes
+    state: enabled
+  notify:
+  - restart firewalld
+
+- name: redirect 443 to 3130
+  firewalld:
+    rich_rule: rule family=ipv4 forward-port port=80 protocol=tcp to-port=3129
+    zone: public
+    permanent: yes
+    immediate: yes
+    state: enabled
+  notify:
+  - restart firewalld
 
 # ensure cron job for squid log rotation exists
 - name: cron job squid log rotation
