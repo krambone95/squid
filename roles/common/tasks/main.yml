@@ -79,6 +79,22 @@
     setype: squid_port_t
     state: present
 
+- name: firewalld service http
+  firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+  notify:
+  -  restart firewalld
+
+- name: firewalld service https
+  firewalld:
+    service: https
+    permanent: yes
+    state: enabled
+  notify:
+  -  restart firewalld
+
 - name: firewalld ports 3128-3130
   firewalld:
     port: 3128-3130/tcp
