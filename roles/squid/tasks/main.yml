@@ -5,17 +5,19 @@
     name: squid
     state: present
 
-# ensure squid is installed
-#- name: ensure squid-helpers is installed
-#  package:
-#    name: squid-helpers
-#    state: present
+ ensure squid is installed
+- name: ensure squid-helpers is installed
+  package:
+    name: squid-helpers
+    state: present
+  ignore_errors: yes
 
-# ensure squid-debuginfo is installed
-#- name: ensure squid is installed
-#  package:
-#    name: squid-debuginfo
-#    state: present
+ ensure squid-debuginfo is installed
+- name: ensure squid is installed
+  package:
+    name: squid-debuginfo
+    state: present
+  ignore_errors: yes
 
 - name: copy config files
   copy:
