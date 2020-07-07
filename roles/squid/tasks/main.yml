@@ -42,21 +42,6 @@
   - restart squid
   when: 
     - not ssl_db_file.stat.exists
-    - ansible_distribution == "CentOS"
-    - ansible_distribution_major_version == "8"
-
-# run db create command if above fails cent7
-- name: run ssl_db create if necessary
-  command:
-    cmd: /usr/lib64/squid/ssl_crtd -c -s /var/spool/squid/ssl_db -M 4MB
-  become: yes
-  become_user: squid
-  notify:
-  - restart squid
-  when: 
-    - not ssl_db_file.stat.exists
-    - ansible_distribution == "CentOS"
-    - ansible_distribution_major_version == "7"
   
 # make sure dhparam exists for DH ciphers
 - name: check if dhparam.pem exists
