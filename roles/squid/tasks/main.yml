@@ -112,7 +112,7 @@
   iptables:
     table: nat
     chain: POSTROUTING
-    destination: !192.168.56.0/24
+    destination: ! 192.168.56.0/24
     out_interface: ens33
     jump: SNAT
     to_source: 192.168.56.130
