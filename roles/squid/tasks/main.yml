@@ -159,14 +159,6 @@
     jump: SNAT
     to_source: "{{ ansible_facts['default_ipv4']['address'] }}"
 
-# final deny
-- name: Reject tcp with tcp-reset
-  iptables:
-    chain: INPUT
-    protocol: tcp
-    reject_with: tcp-reset
-    ip_version: ipv4
-
 # ensure cron job for squid log rotation exists
 - name: cron job squid log rotation
   cron:
