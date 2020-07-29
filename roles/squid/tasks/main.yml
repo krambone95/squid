@@ -99,7 +99,7 @@
   iptables:
     table: nat
     chain: PREROUTING
-    source: 192.168.56.0/24
+    source: "192.168.56.0/24"
     in_interface: ens33
     protocol: tcp
     match: tcp
@@ -112,7 +112,7 @@
   iptables:
     table: nat
     chain: POSTROUTING
-    destination: ! 192.168.56.0/24
+    destination: "!192.168.56.0/24"
     out_interface: ens33
     jump: SNAT
     to_source: 192.168.56.130
