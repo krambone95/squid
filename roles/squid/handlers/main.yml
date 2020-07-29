@@ -8,7 +8,7 @@
     state: restarted
 
 # Restart firewalld service
-- name: restart firewalld
+- name: restart iptables
   service:
-    name: firewalld
+    name: iptables
     state: restarted
