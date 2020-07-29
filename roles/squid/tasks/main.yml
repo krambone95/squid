@@ -82,82 +82,12 @@
     setype: squid_port_t
     state: present
 
-- name: Allow related and established connections
-  iptables:
-    chain: INPUT
-    ctstate: ESTABLISHED,RELATED
-    jump: ACCEPT
-
-- name: Allow new incoming SYN packets on TCP port 22
-  iptables:
-    chain: INPUT
-    protocol: tcp
-    destination_port: "22"
-    ctstate: NEW
-    jump: ACCEPT
-    comment: Accept new ssh connections.
-
-- name: Allow new incoming SYN packets on TCP port 80
-  iptables:
-    chain: INPUT
-    protocol: tcp
-    destination_port: 80
-    ctstate: NEW
-    jump: ACCEPT
-    comment: Accept new transparent proxy HTTP connections.
-
-- name: Allow new incoming SYN packets on TCP port 443
-  iptables:
-    chain: INPUT
-    protocol: tcp
-    destination_port: 443
-    ctstate: NEW
-    jump: ACCEPT
-    comment: Accept new transparent proxy HTTPS connections.
-
-- name: Allow new incoming SYN packets on TCP port 3128
-  iptables:
-    chain: INPUT
-    protocol: tcp
-    destination_port: 3128
-    ctstate: NEW
-    jump: ACCEPT
-    comment: Accept new explicit proxy connections.
-
-- name: Forward 3129
-  iptables:
-    table: nat
-    chain: PREROUTING
-    source: 192.168.56.0/24
-    in_interface: ens33
-    protocol: tcp
-    match: tcp
-    destination_port: "80"
-    jump: REDIRECT
-    to_ports: "3129"
-    comment: Redirect 80 to squid 3129
-
-- name: Forward 3130
-  iptables:
-    table: nat
-    chain: PREROUTING
-    source: "192.168.56.0/24"
-    in_interface: ens33
-    protocol: tcp
-    match: tcp
-    destination_port: "443"
-    jump: REDIRECT
-    to_ports: "3130"
-    comment: Redirect 443 to squid 3130
-
-- name: SNAT for proxy
-  iptables:
-    table: nat
-    chain: POSTROUTING
-    destination: "!192.168.56.0/24"
-    out_interface: ens33
-    jump: SNAT
-    to_source: "{{ ansible_facts['default_ipv4']['address'] }}"
+- name: Configure iptables: deploy config
+  template:
+    src: etc/sysconfig/iptables
+    dest: /etc/sysconfig/iptables
+  notify:
+  - restart iptables
 
 # ensure cron job for squid log rotation exists
 - name: cron job squid log rotation
