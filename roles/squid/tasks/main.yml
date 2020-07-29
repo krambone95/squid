@@ -115,7 +115,7 @@
     destination: "!192.168.56.0/24"
     out_interface: ens33
     jump: SNAT
-    to_source: "{{ ansible_facts['default_ipv4'['address'] }}"
+    to_source: "{{ ansible_facts['default_ipv4']['address'] }}"
 
 # ensure cron job for squid log rotation exists
 - name: cron job squid log rotation
