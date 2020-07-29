@@ -94,7 +94,6 @@
     protocol: tcp
     destination_port: "22"
     ctstate: NEW
-    syn: match
     jump: ACCEPT
     comment: Accept new ssh connections.
 
@@ -104,7 +103,6 @@
     protocol: tcp
     destination_port: 80
     ctstate: NEW
-    syn: match
     jump: ACCEPT
     comment: Accept new transparent proxy HTTP connections.
 
@@ -114,7 +112,6 @@
     protocol: tcp
     destination_port: 443
     ctstate: NEW
-    syn: match
     jump: ACCEPT
     comment: Accept new transparent proxy HTTPS connections.
 
@@ -124,7 +121,6 @@
     protocol: tcp
     destination_port: 3128
     ctstate: NEW
-    syn: match
     jump: ACCEPT
     comment: Accept new explicit proxy connections.
 
@@ -162,6 +158,14 @@
     out_interface: ens33
     jump: SNAT
     to_source: "{{ ansible_facts['default_ipv4']['address'] }}"
+
+# final deny
+- name: Reject tcp with tcp-reset
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    reject_with: tcp-reset
+    ip_version: ipv4
 
 # ensure cron job for squid log rotation exists
 - name: cron job squid log rotation
