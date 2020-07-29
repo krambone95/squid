@@ -90,9 +90,9 @@
     in_interface: ens33
     protocol: tcp
     match: tcp
-    destination_port: 80
+    destination_port: "80"
     jump: REDIRECT
-    to_ports: 3129
+    to_ports: "3129"
     comment: Redirect 80 to squid 3129
 
 - name: Forward 3130
@@ -103,9 +103,9 @@
     in_interface: ens33
     protocol: tcp
     match: tcp
-    destination_port: 443
+    destination_port: "443"
     jump: REDIRECT
-    to_ports: 3130
+    to_ports: "3130"
     comment: Redirect 443 to squid 3130
 
 - name: SNAT for proxy
