@@ -84,7 +84,7 @@
 
 - name: Configure iptables deploy config
   template:
-    src: etc/sysconfig/iptables
+    src: files/etc/sysconfig/iptables
     dest: /etc/sysconfig/iptables
   notify:
   - restart iptables
