@@ -105,7 +105,7 @@
 
 - name: deploy iptables file
   template:
-    src: etc/sysconfig/iptables
+    src: files/etc/sysconfig/iptables
     dest: /etc/sysconfig/iptables
   notify:
   - restart iptables
