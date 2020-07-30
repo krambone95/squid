@@ -82,7 +82,7 @@
     setype: squid_port_t
     state: present
 
-- name: Configure iptables: deploy config
+- name: Configure iptables deploy config
   template:
     src: etc/sysconfig/iptables
     dest: /etc/sysconfig/iptables
