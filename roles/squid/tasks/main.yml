@@ -86,6 +86,7 @@
   service:
     name: firewalld
     state: stopped
+  ignore_errors: yes
 
 - name: uninstall firewalld
   package:
