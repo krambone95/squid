@@ -82,9 +82,29 @@
     setype: squid_port_t
     state: present
 
-- name: Configure iptables deploy config
+- name: stop firewalld if started
+  service:
+    name: firewalld
+    state: stopped
+
+- name: uninstall firewalld
+  package:
+    name: firewalld
+    state: absent
+
+- name: install iptables
+  package:
+    name: iptables-services
+    state: present
+
+- name: start iptables if stopped
+  service:
+    name: iptables
+    state: started
+
+- name: deploy iptables file
   template:
-    src: files/etc/sysconfig/iptables
+    src: etc/sysconfig/iptables
     dest: /etc/sysconfig/iptables
   notify:
   - restart iptables
