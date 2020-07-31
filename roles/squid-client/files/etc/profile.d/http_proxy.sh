@@ -1,4 +1,4 @@
-PROXY_URL="http://192.168.56.131:3128/"
+PROXY_URL="http://192.168.56.133:3128/"
 
 export http_proxy="$PROXY_URL"
 export https_proxy="$PROXY_URL"
