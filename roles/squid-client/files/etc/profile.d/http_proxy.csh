@@ -10,4 +10,6 @@ setenv HTTP_PROXY "$PROXY_URL"
 setenv HTTPS_PROXY "$PROXY_URL"
 setenv FTP_PROXY "$PROXY_URL"
 setenv NO_PROXY "127.0.0.1,localhost"
+
+# for python requests
 setenv REQUESTS_CA_BUNDLE '/etc/ssl/certs/ca-bundle.crt'
