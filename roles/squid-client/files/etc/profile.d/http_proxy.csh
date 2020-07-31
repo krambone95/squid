@@ -1,5 +1,3 @@
-setenv http_proxy http://proxy.example.com:3128/
-
 setenv PROXY_URL "http://192.168.56.131:3128/"
 
 setenv http_proxy "$PROXY_URL"
