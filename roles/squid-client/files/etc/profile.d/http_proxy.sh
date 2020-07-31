@@ -10,3 +10,6 @@ export HTTP_PROXY="$PROXY_URL"
 export HTTPS_PROXY="$PROXY_URL"
 export FTP_PROXY="$PROXY_URL"
 export NO_PROXY="127.0.0.1,localhost"
+
+# for python requests
+export REQUESTS_CA_BUNDLE="/etc/ssl/certs/ca-bundle.crt"
