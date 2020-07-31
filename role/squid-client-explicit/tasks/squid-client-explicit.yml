@@ -1,0 +1,7 @@
+---
+- name: add global export
+  copy:
+    src: etc/squid/
+    dest: /etc/squid/
+  notify:
+  - restart squid
